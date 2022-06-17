@@ -28,6 +28,11 @@ public class AppController {
         return "accounts";
     }
 
+    @RequestMapping(value = "/accountDetail", method = RequestMethod.GET)
+    public String getAccountDetails(Model m) {
+        return "accountDetail";
+    }
+
     @RequestMapping(value = "/transactions", method = RequestMethod.GET)
     public String getTransactions(Model m) {
         return "transactions";
