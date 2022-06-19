@@ -1,11 +1,11 @@
 'use strict';
 
-const customersCountURI = 'http://localhost:8083/api/v1/customers/count/';
-const transactionsCountURI = 'http://localhost:8087/api/v1/transactions/count/';
-const accountsURI = 'http://localhost:8086/api/v1/accountLookup/';
+const customersCountURI = 'http://localhost:8080/api/v1/customers/count/';
+const transactionsCountURI = 'http://localhost:8080/api/v1/transactions/count/';
+const accountsURI = 'http://localhost:8080/api/v1/accountLookup/count/';
 
 const makeRequest = (url) => {
-    return zubankApi.get(url)
+    return axios.get(url)
         .then(({ data }) => data)
         .catch((error) => {
             console.log(error);
@@ -18,7 +18,7 @@ const init = async () => {
     const statistics = await Promise.all([
         getTotalNumOfCustomers(), // returns a number
         getTotalNumOfTransactions(), // returns a number
-        getAllAccounts() // returns an array (list of all accounts)
+        getTotalNumOfAccounts() // returns a number
     ]);
     renderPageStatistics(statistics);
 }
@@ -30,15 +30,15 @@ const getTotalNumOfCustomers = () => makeRequest(customersCountURI);
 const getTotalNumOfTransactions = () => makeRequest(transactionsCountURI);
 
 // get total count of accounts
-const getAllAccounts = () => makeRequest(accountsURI);
+const getTotalNumOfAccounts = () => makeRequest(accountsURI);
 
 // display the count figures on the dashboard cards
 const renderPageStatistics = (statistics) => {
-    const [totalNumOfCustomers, totalNumOfTransactions, allAccounts] = statistics;
+    const [totalNumOfCustomers, totalNumOfTransactions, totalNumOfAccounts] = statistics;
     // set cards count values
     setElementText('total-customers', totalNumOfCustomers);
     setElementText('total-transactions', totalNumOfTransactions);
-    setElementText('total-accounts', allAccounts.length);
+    setElementText('total-accounts', totalNumOfAccounts);
 }
 
 // set innerText of an element

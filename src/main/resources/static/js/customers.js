@@ -8,8 +8,8 @@ const createCustomerBtn = document.querySelector('#create-customer-btn');
 const totalCustomers = document.querySelector('#total-customers');
 let selectedCustomerId = '';
 
-const customersURI = 'http://localhost:8083/api/v1/customers';
-const account_cmdURI = 'http://localhost:8085/api/v1/accounts';
+const customersURI = 'http://localhost:8080/api/v1/customers';
+const account_cmdURI = 'http://localhost:8080/api/v1/accounts';
 
 const extractErrorMssg = (error) => error.response.data.message;
 const setRequestOptions = (method, url, data) => ({
@@ -23,7 +23,7 @@ const setRequestOptions = (method, url, data) => ({
 
 /* load page data */
 const init = async () => {
-  await zubankApi
+  await axios
     .get(`${customersURI}/`)
     .then((response) => {
       const { data } = response;
@@ -45,7 +45,7 @@ const init = async () => {
 const handleDelete = (id) => {
   console.log('DELETED CUSTOMER: ', id);
   // make request to backend server to delete customer using the id
-  zubankApi
+  axios
     .delete(`${customersURI}/${id}`)
     .then((response) => {
       console.log('Success:', response.data);
@@ -62,7 +62,7 @@ const handleDelete = (id) => {
 const handleCreateAccFormSubmit = (formData) => {
   // make request to backend server
   // actionURL is the 'backend-url' of the customers endpoint
-  zubankApi(setRequestOptions('POST', `${account_cmdURI}/openAccount/`, formData))
+  axios(setRequestOptions('POST', `${account_cmdURI}/openAccount/`, formData))
     .then(({ data }) => {
       console.log('Success:', data);
       swal('Success!', data.message, 'success').then(() => {
@@ -81,7 +81,7 @@ const handleCreateAccFormSubmit = (formData) => {
 /* Create and Edit customer request */
 const handleCustomerFormSubmit = (url, method, formData) => {
   // make request to backend server
-  zubankApi(setRequestOptions(method, url, formData))
+  axios(setRequestOptions(method, url, formData))
     .then(({ data }) => {
       console.log('Success:', data);
       swal('Successful!', data, 'success').then(() => {
@@ -106,7 +106,7 @@ const updateCustomer = (formData, id) => {
 };
 
 const getCustomer = (customerId) => {
-  return zubankApi
+  return axios
     .get(`${customersURI}/${customerId}`)
     .then(({ data }) => data)
     .catch((error) =>
@@ -118,11 +118,12 @@ const loadTableData = (data) => {
   totalCustomers.innerText = data.length;
 
   const tableRows = data.map(
-    ({ id, firstName, lastName, dateOfBirth, email }, index) => `
+    ({ id, firstName, lastName, dateOfBirth, email, gender}, index) => `
         <tr class="table-item" id="${id}">
           <th scope="row">${index + 1}</th>
           <td>${firstName}</td>
           <td>${lastName}</td>
+          <td>${gender}</td>
           <td>${dateOfBirth}</td>
           <td>${email}</td>
           <td>
@@ -252,11 +253,9 @@ const renderCustomerForm = async (title, actionURL = '', actionType) => {
           </div>
           <div class="col-md-6">
               <label for="gender" class="col-form-label">Gender:</label>
-              <select name="gender" id="gender" value="${
-                customer?.gender || ''
-              }" class="form-select form-select-sm" aria-label="Gender">
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
+              <select name="gender" id="gender" class="form-select form-select-sm" aria-label="Gender">
+                <option value="male" ${customer?.gender === 'male' && 'selected'}>Male</option>
+                <option value="female" ${customer?.gender === 'female'  && 'selected'}>Female</option>
               </select>
           </div>
           <div class="col-md-6">

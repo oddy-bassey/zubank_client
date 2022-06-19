@@ -7,8 +7,8 @@ const totalAccounts = document.querySelector('#total-accounts');
 let accounts = null;
 let selectedAccId = '';
 
-const account_cmdURI = 'http://localhost:8085/api/v1/accounts';
-const account_queryURI = 'http://localhost:8086/api/v1/accountLookup';
+const account_cmdURI = 'http://localhost:8080/api/v1/accounts';
+const account_queryURI = 'http://localhost:8080/api/v1/accountLookup';
 
 const extractErrorMssg = (error) => error.response.data.message;
 const setRequestOptions = (method, data) => ({
@@ -19,11 +19,11 @@ const setRequestOptions = (method, data) => ({
   data: JSON.stringify(data),
 });
 
-console.dir(zubankApi);
+console.dir(axios);
 
 /* load page data */
 const init = async () => {
-  await zubankApi
+  await axios
     .get(`${account_queryURI}/`)
     .then(({ data }) => {
       console.log('Success:', data);
@@ -44,7 +44,7 @@ const init = async () => {
 const handleDelete = (id) => {
   console.log('DELETED ACCOUNT: ', id);
   // make request to backend server to delete acc using the id
-  zubankApi
+  axios
     .delete(`${account_cmdURI}/closeAccount/${id}`)
     .then(({ data }) => {
       console.log('Success:', data);
@@ -60,7 +60,7 @@ const handleDelete = (id) => {
 // sends request for deposit and withdraw transaction
 const sendTransaction = (url, formData) => {
   // make request to backend server
-  zubankApi(url, setRequestOptions('PUT', formData))
+  axios(url, setRequestOptions('PUT', formData))
     .then(({ data }) => {
       console.log('Success:', data);
       swal('Transaction Successful!', data.message, 'success').then(() => {
@@ -79,7 +79,7 @@ const sendTransaction = (url, formData) => {
 // sends request for funds transfer
 const transferFund = (formData) => {
   // make request to backend server
-  zubankApi(
+  axios(
     `${account_cmdURI}/transferFunds/`,
     setRequestOptions('POST', formData)
   )
@@ -104,7 +104,7 @@ const loadTableData = (data) => {
     // TODO: remember to destructure accountName
     ({
       id: accId,
-      accountName = 'Megan Smith',
+      name,
       accountType,
       balance,
       createdDate,
@@ -115,7 +115,7 @@ const loadTableData = (data) => {
           ${customerId.slice(0, 14) + '***'}
         </td>
         <td>${accId}</td>
-        <td>${accountName}</td>
+        <td>${name}</td>
         <td>${accountType}</td>
         <td>${balance}</td>
         <td>${new Date(createdDate).toLocaleString()}</td>
@@ -256,6 +256,7 @@ const renderTransactionForm = (title, action, actionURL = '') => {
   );
   modalTitle.innerText = title;
   modalBody.innerHTML = `
+      <div class="container-fluid" style="text-align: center"><span style="color: red">(comming soon)</span></div>
       <form class="row g-3 transaction-form needs-validation" novalidate>
           <div class="col-md-6">
               <label for="accountId" class="col-form-label">AccountId:</label>

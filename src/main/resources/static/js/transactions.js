@@ -2,14 +2,14 @@
 
 const tableBody = document.querySelector('#table-body');
 
-const transactionsURI = 'http://localhost:8087/api/v1/transactions';
+const transactionsURI = 'http://localhost:8080/api/v1/transactions';
 
 const extractErrorMssg = (error) => error.response.data.message;
 
 /* load page data */
 const init = async () => {
   // make request to fetch list of all transactions
-  await zubankApi
+  await axios
     .get(`${transactionsURI}/`)
     .then(({ data }) => {
       console.log('Success:', data);
