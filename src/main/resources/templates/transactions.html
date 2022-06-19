@@ -20,7 +20,7 @@
   <body>
     <!-- Axios -->
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="verifyUser.js"></script>
+    <script th:src="@{/js/verifyUser.js}"></script>
 
     <!-- Top Navigation-->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -66,10 +66,11 @@
           <thead class="table-light">
             <tr>
               <th scope="col">#</th>
-              <th scope="col">Account no.</th>
+              <th scope="col">Transaction ID</th>
+              <th scope="col">Account ID</th>
               <th scope="col">Type</th>
               <th scope="col">Amount ($)</th>
-              <th scope="col">Date</th>
+              <th scope="col">Transaction Time</th>
             </tr>
           </thead>
           <tbody id="table-body">
@@ -86,6 +87,6 @@
       integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
       crossorigin="anonymous"
     ></script>
-    <script src="transactions.js"></script>
+    <script th:src="@{/js/transactions.js}"></script>
   </body>
 </html>
