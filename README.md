@@ -24,7 +24,7 @@ Testing is achieved using Junit5 & Mockito library. The application features a s
 
 Application Images
 - 
-[alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/dashboard.PNG?raw=true)
-[alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/customer.PNG?raw=true)
-[alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/account.PNG?raw=true)
-[alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/transaction.PNG?raw=true)
+![alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/dashboard.PNG?raw=true)
+![alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/customer.PNG?raw=true)
+![alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/account.PNG?raw=true)
+![alt text](https://github.com/oddy-bassey/zubank_client/blob/main/src/main/resources/screen_shots/transaction.PNG?raw=true)
