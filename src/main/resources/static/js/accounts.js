@@ -256,7 +256,6 @@ const renderTransactionForm = (title, action, actionURL = '') => {
   );
   modalTitle.innerText = title;
   modalBody.innerHTML = `
-      <div class="container-fluid" style="text-align: center"><span style="color: red">(comming soon)</span></div>
       <form class="row g-3 transaction-form needs-validation" novalidate>
           <div class="col-md-6">
               <label for="accountId" class="col-form-label">AccountId:</label>
